@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #e695ab; /* Pink */
+            --secondary-color: #ffffff;
+            --text-color: #333333;
+            --accent-color: #d63384;
+            --bg-gradient: linear-gradient(135deg, #ffffff 0%, #e695ab 100%);
+            --font-gradient: linear-gradient(45deg, #4a89dc, #e695ab); /* Blue to Pink gradient */
+        }
+
+        .dark-mode {
+            --primary-color: #9c27b0; /* Dark purple */
+            --secondary-color: #1a0033;
+            --text-color: #e6e6ff;
+            --accent-color: #ba68c8;
+            --bg-gradient: linear-gradient(135deg, #1a0033 0%, #2d0066 100%);
+            --font-gradient: linear-gradient(45deg, #5d9cec, #d770ad); /* Lighter blue to pink for dark mode */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-color);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Gradient Text Elements */
+        .logo,
+        .contact-form h2,
+        .contact-info h3,
+        nav a:hover,
+        nav a.active {
+            background: var(--font-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .theme-toggle {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .dark-mode nav ul {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover,
+        nav a.active {
+            background: var(--font-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            padding: 2rem 0;
+        }
+
+        .contact-form {
+            background: var(--secondary-color);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .dark-mode .contact-form {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .contact-form h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+
+        .dark-mode input, 
+        .dark-mode textarea {
+            background: #2d0066;
+            border: 1px solid #4a148c;
+            color: white;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #4a89dc, #e695ab); /* Blue to Pink gradient */
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(45deg, #3a79d4, #d6859b);
+            transform: translateY(-2px);
+        }
+
+        .contact-info {
+            padding: 2rem;
+        }
+
+        .contact-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info ul {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .contact-info li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        /* Success message styles */
+        .success-message {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 30px;
+            background: linear-gradient(90deg, #4a89dc, #9c27b0);
+            color: white;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: fadeInOut 3s ease forwards;
+        }
+        
+        .success-message-text {
+            background: linear-gradient(90deg, #ffffff, #e0d0ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: bold;
+        }
+        
+        @keyframes fadeInOut {
+            0% { opacity: 0; top: 0; }
+            10% { opacity: 1; top: 20px; }
+            90% { opacity: 1; top: 20px; }
+            100% { opacity: 0; top: 0; }
+        }
+        
+        .success-message i {
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Contact</div>
+            <button id="themeToggle" class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="" class="active">Contact</a></li>
+                <li><a href="project.html">project</a></li>
+                <li><a href="blog.html">blog</a></li>
+
+            </ul>
+        </nav>
+        
+        <main>
+            <div class="contact-form">
+                <h2>Contact Us</h2>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <input type="text" placeholder="Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="Phone Number">
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Your Message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+            
+            <div class="contact-info">
+                <h3>Our Information</h3>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> Gujrat Ahemdabad </li>
+                    <li><i class="fas fa-phone"></i> +919825800421</li>
+                    <li><i class="fas fa-envelope"></i> krupaparmar803@gmail.com</li>
+                </ul>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme Toggle Functionality (keep this same)
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                body.classList.add('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+
+            themeToggle.addEventListener('click', function() {
+                body.classList.toggle('dark-mode');
+                
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                } else {
+                    localStorage.setItem('theme', 'light');
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                }
+            });
+
+            // ✅ Updated Form Submission to Connect with Backend
+            const contactForm = document.getElementById('contactForm');
+            const submitBtn = contactForm.querySelector('.submit-btn');
+
+            contactForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                submitBtn.disabled = true;
+                submitBtn.textContent = "Sending...";
+                
+                // Get form data
+                const formData = {
+                    name: contactForm.querySelector('input[type="text"]').value.trim(),
+                    email: contactForm.querySelector('input[type="email"]').value.trim(),
+                    phone: contactForm.querySelector('input[type="tel"]').value.trim(),
+                    message: contactForm.querySelector('textarea').value.trim()
+                };
+
+                // Validate required fields
+                if (!formData.name || !formData.email || !formData.message) {
+                    alert("Please fill all required fields");
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = "Send Message";
+                    return;
+                }
+
+                try {
+                    // Send to your backend API
+                    const response = await fetch('http://localhost:5000/api/contact_form', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        // Show success message
+                        const successMessage = document.createElement('div');
+                        successMessage.className = 'success-message';
+                        successMessage.innerHTML = `
+                            <i class="fas fa-check-circle"></i>
+                            <span class="success-message-text">${result.message || 'Thank you for your message!'}</span>
+                        `;
+                        document.body.appendChild(successMessage);
+                        
+                        // Remove after animation
+                        setTimeout(() => {
+                            successMessage.remove();
+                        }, 3000);
+                        
+                        // Reset form
+                        contactForm.reset();
+                    } else {
+                        throw new Error(result.error || 'Failed to send message');
+                    }
+                } catch (error) {
+                    alert('Error: ' + error.message);
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = "Send Message";
+                }
+            });
+        });
+        </script>
+</body>
+</html>

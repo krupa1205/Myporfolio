@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Projects Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="project.css">
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="animated-bg"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-brand">My Portfolio</div>
+    <ul class="nav-links">
+      <li><a href="index.html">home</a></li>
+      <li><a href="#" class="active">Projects</a></li>
+      <li><a href="blog.html">blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="theme-toggle"><i class="fas fa-moon"></i></button>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container">
+    <h1 class="hero-title">My <span class="highlight">Projects</span></h1>
+    
+    <!-- Projects Grid -->
+    <div class="projects-grid">
+      <!-- Travel App Project -->
+      <div class="project-item">
+        <div class="project-media">
+          <img src="travel.png" alt="Travel App Screenshot">
+          <div class="tech-tags">
+            <span><i class="fab fa-html5"></i> HTML</span>
+            <span><i class="fab fa-css3-alt"></i> CSS</span>
+            <span><i class="fab fa-js"></i> JavaScript</span>
+          </div>
+        </div>
+        <div class="project-content">
+          <h3>Travel Explorer</h3>
+          <p>A frontend-only travel website I built during vacation. As a first-year student, this was my first web project with no backend or database functionality. Features responsive design and basic search functionality.</p>
+          <div class="project-actions">
+            <a href="https://krupa1205.github.io/travel-Website/" class="btn-primary">
+              <i class="fas fa-eye"></i> View Demo
+            </a>
+            <a href="https://github.com/krupa1205/travel-Website" class="btn-secondary">
+              <i class="fab fa-github"></i> Source Code
+            </a>
+          </div>
+          <div class="project-links">
+            <div id="messageBox" class="message-area"></div>
+            <small>Note: This is a static frontend-only project</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- User Project Submission Form -->
+      <div class="project-item">
+        <div class="project-content">
+          <h3>Share Your Project</h3>
+          <form id="projectForm">
+            <div class="form-group">
+              <label for="projectName">Project Name</label>
+              <input type="text" id="projectName" name="projectName" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="projectType">Project Type</label>
+              <select id="projectType" name="projectType" required>
+                <option value="">Select...</option>
+                <option value="web">Web Application</option>
+                <option value="mobile">Mobile App</option>
+                <option value="game">Game</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label>Technologies Used</label>
+              <div class="tech-checkboxes">
+                <label><input type="checkbox" name="tech" value="html"> HTML</label>
+                <label><input type="checkbox" name="tech" value="css"> CSS</label>
+                <label><input type="checkbox" name="tech" value="js"> JavaScript</label>
+                <label><input type="checkbox" name="tech" value="react"> React</label>
+                <label><input type="checkbox" name="tech" value="node"> Node.js</label>
+                <label><input type="checkbox" name="tech" value="python"> Python</label>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="projectDesc">Description</label>
+              <textarea id="projectDesc" name="projectDesc" rows="3" required></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="githubLink">GitHub Link (optional)</label>
+              <input type="url" id="githubLink" name="githubLink" placeholder="https://github.com/yourusername/project">
+            </div>
+            
+            <button type="submit" class="btn-primary">
+              <i class="fas fa-paper-plane"></i> Submit Project
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submitted Projects Section -->
+    <div class="submitted-projects">
+      <h2>Community Projects</h2>
+      <div id="projectsContainer" class="projects-grid"></div>
+    </div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
